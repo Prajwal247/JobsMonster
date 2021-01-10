@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <h5 class="card-title text-center"><b>Login Here</b></h5>
+          <form class="form-signin" method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+              <br />
+                <label for="username">Username:</label><br>
+                <input type="text" name="username" value="" placeholder="Enter Username">
+                    <br><br>
+                <label for="username">Password:</label><br>
+                <input type="password" name="password" value="" placeholder="Enter password"><br>
+  
+            </fieldset>
+            <div class="form-group">
+              <button
+                class="btn btn-lg btn-primary btn-block text-uppercase"
+                type="submit"
+              >
+                LogIn</button
+              ><br />
+            </div>
+          </form>
+          <br>
+        <small>Don't have an account?? signup <a href="{% url 'signup' %}">Here</a></small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

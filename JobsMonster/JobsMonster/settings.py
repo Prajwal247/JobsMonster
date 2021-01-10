@@ -50,6 +50,7 @@ VENDER_APPS = [
 SYSTEM_APPS = [
     'User',
     'Jobs',
+    'occupations',
 ]
 INSTALLED_APPS = DJANGO_APPS + VENDER_APPS + SYSTEM_APPS
 
@@ -130,6 +131,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
+
+AUTH_USER_MODEL = 'User.User'
+
 
 STATIC_URL = '/static/'
 STAIIC_ROOT = BASE_DIR / 'static-root'

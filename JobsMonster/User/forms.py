@@ -86,8 +86,10 @@ class ProfessionalUserRegistrationForm(forms.ModelForm):
                   'Skills',
                   'location',
                   'Gender',
-                  'DOB',
-                  'Nationality',
+                  'work_experience',
+                  'BioData',
+                  'currently_employed',
+                  'pay_rate',
                   'password1',
                   'password2',]
         widgets = {

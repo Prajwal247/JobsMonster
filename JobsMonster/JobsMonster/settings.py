@@ -135,6 +135,8 @@ USE_TZ = True
 AUTH_USER_MODEL = 'User.User'
 
 
+
+
 STATIC_URL = '/static/'
 STAIIC_ROOT = BASE_DIR / 'static-root'
 STATICFILES_DIRS = [

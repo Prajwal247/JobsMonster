@@ -86,7 +86,10 @@ class User(AbstractBaseUser, PermissionsMixin):
     Skills = models.TextField(max_length = 200, null = True, blank = True)
 
     location = models.CharField(max_length = 200, null = True)
-
+    BioData = models.FileField(upload_to='static/biodata')
+    work_experience = models.CharField(max_length=250, help_text = 'Previous Workexperience blank if not worked yet')
+    currently_employed = models.CharField(max_length=50, help_text = 'Currently employed if any')
+    pay_rate = models.FloatField(help_text = 'Expected pay rate per hour')
     date_joined = models.DateTimeField(_('date joined'), default = timezone.now)
     Gender = models.CharField(max_length=10, default = '', blank = True, null = True, help_text='gender of the user')
     DOB = models.CharField(max_length=20, null=True, blank=True, help_text='Date of birth of the user')

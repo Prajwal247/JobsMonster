@@ -12,8 +12,8 @@
             {% csrf_token %}
             <fieldset class="form-group">
               <br />
-                <label for="username">Username:</label><br>
-                <input type="text" name="username" value="" placeholder="Enter Username">
+                <label for="username">Email:</label><br>
+                <input type="text" name="username" value="" placeholder="Enter Email">
                     <br><br>
                 <label for="username">Password:</label><br>
                 <input type="password" name="password" value="" placeholder="Enter password"><br>
@@ -29,7 +29,7 @@
             </div>
           </form>
           <br>
-        <small>Don't have an account?? signup <a href="{% url 'signup' %}">Here</a></small>
+        <small>Don't have an account?? signup <a href="{% url 'usersignup' %}">Here</a></small>
         </div>
       </div>
     </div>

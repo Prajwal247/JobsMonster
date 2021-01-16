@@ -1,5 +1,6 @@
 
 {% load static %}
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -13,7 +14,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg" style = "height:100px; font-size:30px;">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href={% url 'home' %}">JobsMonster</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -29,15 +30,19 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contact</a>
                 </li>
+				{% if user.is_authenticated %}
+				<li class="nav-item">
+                    <a class="nav-link" href="">Logout</a>
+                </li>
+				{% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">LogIn</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'choice' %}">Register</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Logout</a>
-                </li>
+				{% endif %}
+                
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search">
@@ -46,13 +51,10 @@
         </div>
     </nav>
     
-  
-      {% block content %}
+  {% block content %}
 
 
-      {% endblock %}
-
-    </div>
+  {% endblock %}   
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

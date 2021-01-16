@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -51,6 +51,7 @@ SYSTEM_APPS = [
     'User',
     'Jobs',
     'occupations',
+    'Hiring',
 ]
 INSTALLED_APPS = DJANGO_APPS + VENDER_APPS + SYSTEM_APPS
 
@@ -135,12 +136,20 @@ USE_TZ = True
 AUTH_USER_MODEL = 'User.User'
 
 
+# email configurations
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'jobsmonster247@gmail.com'
+EMAIL_HOST_PASSWORD = 'Jack16sparrow'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
 
 
+# STATIC CONFIGURATIONS
 STATIC_URL = '/static/'
 STAIIC_ROOT = BASE_DIR / 'static-root'
 STATICFILES_DIRS = [
-    BASE_DIR/'static'
+    BASE_DIR/'static',
 ]
 
 MEDIA_URL = '/media/'

@@ -1,4 +1,4 @@
-from django.shortcuts import render, reverse
+from django.shortcuts import render, reverse, redirect
 from .forms import UserRegistrationForm, ProfessionalUserRegistrationForm
 from django.contrib.auth import login, authenticate, logout, password_validation
 from django.contrib import messages
@@ -10,8 +10,11 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_text
 from .tokens import account_activation_token
 from django.core.mail import send_mail
+from django.conf import settings
 
 # Create your views here.
+
+# login page with user email and password verification
 def loginpage(request):
     if request.POST:
         username = request.POST.get('username')
@@ -32,6 +35,8 @@ def loginpage(request):
     return render(request, 'user/login.html')
 
 
+# user signup form basic userform that is used to signup a basic user who hires professionals
+# with emailverification registrations
 def usersignuppage(request):
     form = UserRegistrationForm()
     if request.method == 'POST':
@@ -53,8 +58,15 @@ def usersignuppage(request):
             })
 
             email = form.cleaned_data.get('email')
-            to_email = [email]
-            send_mail(mail_subject, message = 'Activate your account', from_email = 'prazzwalthapa87@gmail.com', recipient_list = to_email, html_message = html_message)
+            
+            send_mail(
+                    mail_subject,
+                    html_message,
+                    settings.EMAIL_HOST_USER,
+                    ['prazzwalthapa87@gmail.com'],
+                    fail_silently=False,
+                )
+
 
             return render(request, 'user/confirmemail.html')
         else:
@@ -63,6 +75,8 @@ def usersignuppage(request):
     return render(request, 'user/register.html',{'form':form})
 
 
+# professional user signup form which is used to register a professional account 
+# with email verification procedures
 def professionalsignuppage(request):
     form = ProfessionalUserRegistrationForm()
     if request.method == 'POST':
@@ -77,6 +91,7 @@ def professionalsignuppage(request):
             form = ProfessionalUserRegistrationForm()
     return render(request, 'user/professionalregister.html',{'form':form})
 
+# email activation function
 def activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
@@ -86,8 +101,8 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        login(request,user,backend='django.contrib.auth.backends.ModelBackend')
-        return render(request, 'registration/emailconfirmed.html')
+        messages.add_message(request, messages.INFO,'Account created Successfully')
+        return redirect('login')
     else:
         return render(request, 'registration/confirmationfailed.html')
 
@@ -95,3 +110,10 @@ def activate(request, uidb64, token):
 
 def registrationchoice(request):
     return render(request, 'user/registrationchoice.html')
+
+
+
+# user profile view
+def userprofile(request):
+    current_user = request.user
+    return render(request, 'user/proprofile.html',{'user':current_user})

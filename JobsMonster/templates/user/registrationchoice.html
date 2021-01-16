@@ -4,15 +4,21 @@
 {% block content %}
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-6">
+        <br>
+        <br>
+        <br>
+            <button type="button" id = "Recruiter" class="btn btn-success btn-lg" style="width:1100px; height:100px; text-align:center;" href = "{% url 'professionalsignup' %}">Register as a Recruiter</button>
 
+        <br>
+        <br>
+        <p>--------------------------------------------------------------------------------------------------------Or--------------------------------------------------------------------------------------------------</p>
+        <br>
+
+
+       
+            <button type="button" id = "freelancer" class="btn btn-primary btn-lg" style="width:1100px; height:100px; text-align:center;" href = "{% url 'professionalsignup' %}">Register as a Freelancer</button>
         </div>
-        <div class="col-md-6">
-            <button type="button" class="btn btn-success btn-lg" href = "{% url 'professionalsignup' %}">Register as a Worker</button>
-        </div>
-    </div>
-</div>
+
 
 
 {% endblock %}

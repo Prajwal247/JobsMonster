@@ -13,6 +13,12 @@ from django.core.mail import send_mail
 from django.conf import settings
 
 # Create your views here.
+# logout function
+@login_required
+def Logoutview(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))
+
 
 # login page with user email and password verification
 def loginpage(request):

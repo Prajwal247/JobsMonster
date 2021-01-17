@@ -4,14 +4,15 @@
 <div class="container mt-5 mb-5">
     <div class="d-flex justify-content-center row">
         <div class="col-md-10">
+            {% for user in Users %}
             <div class="row p-2 bg-white border rounded">
                 <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src=""></div>
                 <div class="col-md-6 mt-1">
-                    <h5>Prazzwal Thapa</h5>
+                    <h5>{{user.first_name}}</h5>
                     <div class="d-flex flex-row">
                         <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>Total Hiring: 0</span>
                     </div>
-                    <div class="mt-1 mb-1 spec-1"><span>Programmer</span><span class="dot"></span><span>Web Developer</span><span class="dot"></span><span>Computer Expert<br></span></div>
+                    <div class="mt-1 mb-1 spec-1"><span>{{user.specialization}}</span><span class="dot"></span><span>Web Developer</span><span class="dot"></span><span>Computer Expert<br></span></div>
                     <div class="mt-1 mb-1 spec-1"><span>Python</span><span class="dot"></span><span>Java</span><span class="dot"></span><span>JS<br></span></div>
                     <p class="text-justify text-truncate para mb-0">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.<br><br></p>
                 </div>
@@ -20,11 +21,12 @@
                         <h4 class="mr-1">Pay rate: $13.99</h4>
                     </div>
                     <h6 class="text-success">Negotiable</h6>
-                    <div class="d-flex flex-column mt-4"><button class="btn btn-primary btn-sm" type="button">Details</button><button class="btn btn-outline-primary btn-sm mt-2" type="button">Hire Now!</button></div>
+                    <div class="d-flex flex-column mt-4"><button  id = "details" class="btn btn-primary btn-sm" type="button">Details</button>
+                    <button class="btn btn-outline-primary btn-sm mt-2" type="button" id = "Hire" >Hire Now!</button></div>
                 </div>
             </div>
             <br>
-            
+            {% endfor %}
             
         </div>
     </div>

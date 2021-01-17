@@ -61,10 +61,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script type="text/javascript">
     document.getElementById("Recruiter").onclick = function () {
-        location.href = "{% url 'usersignup' %}";
+        location.href = "{% url 'usersignup' %}"
     };
     document.getElementById("freelancer").onclick = function () {
         location.href = "{% url 'professionalsignup' %}"
+    };
+    document.getElementById("Hire").onclick = function () {
+        location.href = "{% url 'hire' %}"
     };
     </script>
 </body>

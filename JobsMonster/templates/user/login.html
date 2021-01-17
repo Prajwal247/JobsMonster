@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% if messages %}
+{% for message in messages %}
+  <p>{{message}}</p>
+{% endfor %}
+{% endif %}
 
 <div class="container">
   <div class="row">
@@ -12,8 +17,8 @@
             {% csrf_token %}
             <fieldset class="form-group">
               <br />
-                <label for="username">Email:</label><br>
-                <input type="text" name="username" value="" placeholder="Enter Email">
+                <label for="email">Email:</label><br>
+                <input type="text" name="email" value="" placeholder="Enter Email">
                     <br><br>
                 <label for="username">Password:</label><br>
                 <input type="password" name="password" value="" placeholder="Enter password"><br>

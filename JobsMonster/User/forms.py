@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from .models import User
 
 # this is the form for the user to hire another person
-class UserRegistrationForm(forms.ModelForm):
+class UserRegistrationForm(UserCreationForm):
 
     password1 = forms.CharField(
         label = ('Password'),
@@ -30,7 +30,7 @@ class UserRegistrationForm(forms.ModelForm):
     class Meta():
 
         model = User
-        fields = ['first_name','last_name','email','mobile','DOB','Nationality','password1','password2']
+        fields = ['first_name','last_name','email','DOB','Nationality','password1','password2']
 
         widgets = {
             'first_name':TextInput(attrs={
@@ -51,7 +51,7 @@ class UserRegistrationForm(forms.ModelForm):
 
 # this is the form for the professional workers
 
-class ProfessionalUserRegistrationForm(forms.ModelForm):
+class ProfessionalUserRegistrationForm(UserCreationForm):
 
     
     password1 = forms.CharField(
@@ -80,7 +80,6 @@ class ProfessionalUserRegistrationForm(forms.ModelForm):
         fields = ['first_name',
                   'last_name',
                   'email',
-                  'mobile',
                   'avatar',
                   'Specialization',
                   'Skills',

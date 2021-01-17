@@ -1,67 +1,61 @@
-from django.db import models
+from __future__ import unicode_literals
 from django.core.mail import send_mail
-import random 
 from django.contrib.auth.models import PermissionsMixin
-from django.utils import timezone 
-from django.conf import settings
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
-from django.utils.translation import gettext_lazy as _
-from occupations.models import Occupation
+from django.utils.translation import ugettext_lazy as _
+from django.db import models
+from django.utils import timezone
+
 
 # Create your models here.
-
 class UserManager(BaseUserManager):
-    use_in_migrations = True 
+    use_in_migrations = True
 
     def _create_user(self, email, password, **extra_fields):
-        """
-        creates user and saves them with given username, email and password
-        """
         email = self.normalize_email(email)
         user = self.model(email = email, **extra_fields)
         user.set_password(password)
         user.save(using = self._db)
-        return user 
+        return user
 
-    def create_user(self, email = None, password = None , **extra_fields):
-
+    def create_user(self, email, password = None, **extra_fields):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
+
+
         return self._create_user(email, password, **extra_fields)
 
-    def create_superuser(self, email, password, **extra_fields):
 
+    def create_superuser(self, email, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
 
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError('Superuser must have is_staff=True')
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True')
 
-        return self._create_user(email, password, **extra_fields)
- 
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('superuser must have superuser = True')
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('superuser must have staff = True')
+
+        else:
+            return self._create_user(email, password, **extra_fields)
+
+
 
 class User(AbstractBaseUser, PermissionsMixin):
     """
-    model for user informations extended
+    model for user information
     """
-    first_name = models.CharField(_('first name'), max_length=200, blank=True)
-    last_name = models.CharField(_('last name'), max_length=200, blank=True)
-    email = models.EmailField(_('email address'), unique=True)
-    mobile = models.CharField(max_length=20, unique=True, blank=True, null=True)
-    avatar = models.ImageField(upload_to = 'static/img')
+    email = models.CharField(_('email'), max_length=50, unique=True)
+    first_name = models.CharField(_('first_name'), max_length=50)
+    last_name = models.CharField(_('last_name'), max_length=50)
+    is_active = models.BooleanField(_('active'), default=True, help_text='must be active if false the user is deleted')
     is_staff = models.BooleanField(
         _('staff status'),
-        default= False,
-        help_text= 'allocates whether the user is staff or not'
-    )
-    is_active = models.BooleanField(
-        _('active'),
-        default = True,
-        help_text = 'Allocates whether is active or not unselect this in case of deleting acounts'
-    )
-    
+        default=False,
+        help_text=_('Designates whether the user can log into this admin site.'))
+    avatar = models.ImageField(upload_to = 'avatars/', null = True, blank =True)
+
     occupations_choices = (
         ('RE','Recruiter'),
         ('AFNR','Agriculture,Food and Natural Resources'),
@@ -82,42 +76,44 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('Trans','Transportation'),
     )
 
-    Specialization = models.CharField(max_length = 20, choices = occupations_choices)
-    Skills = models.TextField(max_length = 200, null = True, blank = True)
+    Specialization = models.CharField(max_length=25, choices=occupations_choices)
+    Skills = models.TextField()
+    work_experience = models.CharField(max_length=50)
+    location = models.CharField(max_length=50)
+    BioData = models.FileField(upload_to='biodata/')
+    currently_employed = models.CharField(max_length=100)
+    date_joined = models.DateField(_('date_joined'), default = timezone.now)
+    DOB = models.CharField(max_length=20)
+    Nationality = models.CharField(max_length=20)
+    Gender = models.CharField(max_length=20, choices=(
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('O', 'Others')
+    ))
 
-    location = models.CharField(max_length = 200, null = True)
-    BioData = models.FileField(upload_to='static/biodata')
-    work_experience = models.CharField(max_length=250, help_text = 'Previous Workexperience blank if not worked yet')
-    currently_employed = models.CharField(max_length=50, help_text = 'Currently employed if any')
-    pay_rate = models.FloatField(help_text = 'Expected pay rate per hour', null =True, blank = True)
-    date_joined = models.DateTimeField(_('date joined'), default = timezone.now)
-    Gender = models.CharField(max_length=10, default = '', blank = True, null = True, help_text='gender of the user')
-    DOB = models.CharField(max_length=20, null=True, blank=True, help_text='Date of birth of the user')
-    Nationality = models.CharField(max_length=25, null=True, blank=True, help_text='Nationality of the user')
+    pay_rate = models.FloatField(null = True, blank = True)
+
 
     objects = UserManager()
 
-    EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
 
-    def clean(self):
-        super().clean()
-        self.email = self.__class__.objects.normalize_email(self.email)
 
-    def get_fullname(self):
-        """return the full name of the user"""
-        return f'{self.first_name} {self.last_name}'
+    def get_full_name(self):
+        # returns full name of the user
+        full_name = '%s %s'%(self.first_name, self.last_name)
+        return full_name.strip()
 
-    def get_shortname(self):
-        """return the short name i.e firstname of the user"""
+    def get_short_name(self):
         return self.first_name
 
-    def email_user(self, subject, message, from_email = None, **kwargs):
-        """Sends the email with the message subject to the User"""
+    def send_email(self,subject,message,from_email = None, **kwargs):
+        # sends mail to this user
         send_mail(subject, message, from_email, [self.email], **kwargs)
 
     def __str__(self):

@@ -4,7 +4,7 @@
 db.sqlite3
 env/
 venv/
-
+media/
 ### VisualStudioCode ###
 .vscode
 .vscode/*

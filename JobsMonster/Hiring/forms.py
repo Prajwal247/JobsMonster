@@ -1,5 +1,5 @@
 from django import forms
-from .models import HiringInfo
+from .models import HiringInfo, Jobpost
 
 
 class HiringForm(forms.ModelForm):
@@ -8,4 +8,11 @@ class HiringForm(forms.ModelForm):
         
         model = HiringInfo
 
+        fields = '__all__'
+
+class PostJobForm(forms.ModelForm):
+
+    class Meta():
+
+        model = Jobpost
         fields = '__all__'

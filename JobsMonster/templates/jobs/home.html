@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
 <div class="container mt-5 mb-5">
     <div class="d-flex justify-content-center row">
         <div class="col-md-10">
-            {% for user in Users %}
+            {% for user in users %}
             <div class="row p-2 bg-white border rounded">
                 <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src=""></div>
                 <div class="col-md-6 mt-1">
@@ -31,6 +32,8 @@
         </div>
     </div>
 </div>
+
+
 
 
 

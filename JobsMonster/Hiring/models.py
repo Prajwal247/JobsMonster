@@ -1,6 +1,5 @@
 from django.db import models
 import datetime
-
 # Create your models here.
 class HiringInfo(models.Model):
     Full_name = models.CharField(max_length=200, help_text='Your Full name')
@@ -13,3 +12,34 @@ class HiringInfo(models.Model):
 
     def __str__(self):
         return self.Required_for
+
+
+class Jobpost(models.Model):
+    title = models.CharField(max_length = 50)
+    description = models.TextField()
+    date = models.DateField(auto_now=False, auto_now_add=False)
+    category_choices = (
+        ('RE','Recruiter'),
+        ('AFNR','Agriculture,Food and Natural Resources'),
+        ('A/C','Architecture and Construction'),
+        ('Technology','Arts, Technology and Communications'),
+        ('BMA','Business Management and Administration'),
+        ('EDU','Education and Training'),
+        ('FIN','Finance'),
+        ('GOV','Government and Public Administration'),
+        ('HS','Health Science'),
+        ('HT','Hospitality and Tourism'),
+        ('Humanservice','Human Service'),
+        ('IT','Information Technology'),
+        ('LAW','Law and Pulblic Safety'),
+        ('Manufacture','Manufacturing'),
+        ('sales','Sales and Marketing'),
+        ('Eng/math','Engineering and Mathematics'),
+        ('Trans','Transportation'),
+    )
+    category = models.CharField(max_length = 25, choices = category_choices)
+    estimated_time = models.IntegerField(help_text = 'required time to complete the job in hr')
+
+
+    def __str__(self):
+        return self.title

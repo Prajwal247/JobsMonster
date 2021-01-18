@@ -38,7 +38,7 @@ def loginpage(request):
 
 
 def usersignuppage(request):
-    if request.method == 'POST' :
+    if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
@@ -63,8 +63,8 @@ def usersignuppage(request):
 
 
 def professionalsignuppage(request):
-    if request.method == 'POST' :
-        form = ProfessionalUserRegistrationForm(request.POST)
+    if request.method == 'POST':
+        form = ProfessionalUserRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             # password_validation.validate_password(user.password)
@@ -82,6 +82,8 @@ def professionalsignuppage(request):
             # to_email = [email]
             # send_mail(mail_subject,message='Activate your account',from_email='jobsmonster247@gmail.com',recipient_list=to_email,html_message=html_message)
             return render(request, 'jobs/home.html')
+        else:
+            print("helloadsfas")    
     else:
         form = ProfessionalUserRegistrationForm()
     return render(request,'user/professionalregister.html',{'form':form, })

@@ -80,15 +80,10 @@ class ProfessionalUserRegistrationForm(UserCreationForm):
         fields = ['first_name',
                   'last_name',
                   'email',
+                  
                   'avatar',
-                  'Specialization',
-                  'Skills',
-                  'location',
-                  'Gender',
-                  'work_experience',
-                  'BioData',
-                  'currently_employed',
-                  'pay_rate',
+                  
+                  
                   'password1',
                   'password2',]
         widgets = {

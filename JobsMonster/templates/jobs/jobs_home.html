@@ -1,0 +1,18 @@
+
+
+<div class="container">
+    {% for job in jobs %}
+    <div class="jobs">
+        <h2 class="job-title">{{job.title|title}}</h2>
+        <h4 class="job-category">{{job.category}}</h4>
+        <p class="job-description">{{job.description}}</p>
+        <div class="actions">
+            <button class="btn btn-secondary">Details</button>
+            <button class="btn btn-primary">Apply Now</button>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+

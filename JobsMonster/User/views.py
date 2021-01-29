@@ -21,7 +21,7 @@ def Logoutview(request):
     return HttpResponseRedirect(reverse('home'))
 
 def loginpage(request):
-    if request.POST:
+    if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
         user = authenticate(request,email=email, password=password)
@@ -65,7 +65,9 @@ def usersignuppage(request):
 def professionalsignuppage(request):
     if request.method == 'POST':
         form = ProfessionalUserRegistrationForm(request.POST, request.FILES)
+        
         if form.is_valid():
+        
             form.save()
             # password_validation.validate_password(user.password)
             # user.is_active = False
@@ -124,4 +126,5 @@ def registrationchoice(request):
 
 def userprofile(request):
     loggedin_user = User.objects.get(id=request.user.id)
+
     return render(request,'user/profile.html',{'loggedin_user':loggedin_user})

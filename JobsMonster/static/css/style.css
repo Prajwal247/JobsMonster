@@ -1,5 +1,5 @@
 body {
-  background: #eee
+  background: rgb(241, 234, 219)
 }
 
 .ratings i {
@@ -60,3 +60,20 @@ input.hidden {
 .bot-border{ border-bottom:1px #f8f8f8 solid;
     margin:5px 0  5px 0;
   }	
+
+
+
+  /* for jobs card */
+.jobs{
+    background-color: #09d5f0;
+    display: inline-block;
+    margin: 10px;
+    border: 2px solid rgb(5, 15, 148);
+    box-shadow: 0 3px 4px rgb(4, 55, 131);
+    padding: 20px;
+    width: 100%;
+}
+
+.job-title{
+    text-align: center;
+}

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from . import forms
 # Create your views here.
@@ -10,8 +10,10 @@ def hiring(request):
 def postjob(request):
     form = forms.PostJobForm()
     if request.method == 'POST':
+
         form = forms.PostJobForm(request.POST)
+        form.instance.posted_by = request.user
         if form.is_valid():
             form.save()
-            return render(request, 'jobs/home.html')
+            return redirect('home')
     return render(request, 'hiring/postjob.html', {'form':form})

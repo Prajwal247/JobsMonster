@@ -57,26 +57,26 @@ class User(AbstractBaseUser, PermissionsMixin):
     avatar = models.ImageField(upload_to = 'avatars/', null = True, blank =True)
 
     occupations_choices = (
-        ('RE','Recruiter'),
-        ('AFNR','Agriculture,Food and Natural Resources'),
-        ('A/C','Architecture and Construction'),
-        ('Technology','Arts, Technology and Communications'),
-        ('BMA','Business Management and Administration'),
-        ('EDU','Education and Training'),
-        ('FIN','Finance'),
-        ('GOV','Government and Public Administration'),
-        ('HS','Health Science'),
-        ('HT','Hospitality and Tourism'),
-        ('Humanservice','Human Service'),
-        ('IT','Information Technology'),
-        ('LAW','Law and Pulblic Safety'),
-        ('Manufacture','Manufacturing'),
-        ('sales','Sales and Marketing'),
-        ('Eng/math','Engineering and Mathematics'),
-        ('Trans','Transportation'),
+        ('Recruiter','RE'),
+        ('Agriculture,Food and Natural Resources','AFNR'),
+        ('Architecture and Construction','Architecture and Construction'),
+        ('Technology and Communications','TECH'),
+        ('Business Management and Administration','BMA'),
+        ('Education and Training','EDU'),
+        ('Finance','FIN'),
+        ('Government and Public Administration','GOV'),
+        ('Health Science','HS'),
+        ('Hospitality and Tourism','HT'),
+        ('Human Service','Humanservice'),
+        ('Information Technology','IT'),
+        ('Law and Pulblic Safety','LAW'),
+        ('Manufacturing','MANU'),
+        ('Sales and Marketing','Sales'),
+        ('Engineering and Mathematics','Eng/Math'),
+        ('Transportation','Trans'),
     )
 
-    Specialization = models.CharField(max_length=25, choices=occupations_choices)
+    Specialization = models.CharField(max_length=100, choices=occupations_choices)
     Skills = models.TextField()
     work_experience = models.CharField(max_length=50)
     location = models.CharField(max_length=50)

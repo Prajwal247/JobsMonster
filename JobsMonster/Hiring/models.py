@@ -1,5 +1,7 @@
 from django.db import models
 import datetime
+from User.models import User
+
 # Create your models here.
 class HiringInfo(models.Model):
     Full_name = models.CharField(max_length=200, help_text='Your Full name')
@@ -9,6 +11,7 @@ class HiringInfo(models.Model):
     description = models.TextField(help_text = 'Full description of the work')
     estimated_duration = models.FloatField(help_text = 'For how many hour do you need him/her')
     contact_no = models.CharField(max_length = 14, help_text = 'Contact no of yours')
+    
 
     def __str__(self):
         return self.Required_for
@@ -17,29 +20,29 @@ class HiringInfo(models.Model):
 class Jobpost(models.Model):
     title = models.CharField(max_length = 50)
     description = models.TextField()
-    date = models.DateField(auto_now=False, auto_now_add=False)
+    date = models.DateField()
     category_choices = (
-        ('RE','Recruiter'),
-        ('AFNR','Agriculture,Food and Natural Resources'),
-        ('A/C','Architecture and Construction'),
-        ('Technology','Arts, Technology and Communications'),
-        ('BMA','Business Management and Administration'),
-        ('EDU','Education and Training'),
-        ('FIN','Finance'),
-        ('GOV','Government and Public Administration'),
-        ('HS','Health Science'),
-        ('HT','Hospitality and Tourism'),
-        ('Humanservice','Human Service'),
-        ('IT','Information Technology'),
-        ('LAW','Law and Pulblic Safety'),
-        ('Manufacture','Manufacturing'),
-        ('sales','Sales and Marketing'),
-        ('Eng/math','Engineering and Mathematics'),
-        ('Trans','Transportation'),
+        ('Recruiter','RE'),
+        ('Agriculture,Food and Natural Resources','AFNR'),
+        ('Architecture and Construction','Architecture and Construction'),
+        ('Technology and Communications','TECH'),
+        ('Business Management and Administration','BMA'),
+        ('Education and Training','EDU'),
+        ('Finance','FIN'),
+        ('Government and Public Administration','GOV'),
+        ('Health Science','HS'),
+        ('Hospitality and Tourism','HT'),
+        ('Human Service','Humanservice'),
+        ('Information Technology','IT'),
+        ('Law and Pulblic Safety','LAW'),
+        ('Manufacturing','MANU'),
+        ('Sales and Marketing','Sales'),
+        ('Engineering and Mathematics','Eng/Math'),
+        ('Transportation','Trans'),
     )
-    category = models.CharField(max_length = 25, choices = category_choices)
+    category = models.CharField(max_length = 100, choices = category_choices)
     estimated_time = models.IntegerField(help_text = 'required time to complete the job in hr')
-
+    posted_by = models.ForeignKey(User, on_delete = models.CASCADE)
 
     def __str__(self):
         return self.title

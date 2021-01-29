@@ -7,7 +7,7 @@
         <br>
         <br>
         <br>
-            <button type="button" id = "Recruiter" class="btn btn-success btn-lg" style="width:1100px; height:100px; text-align:center;" href = "{% url 'professionalsignup' %}">Register as a Recruiter</button>
+            <button type="button" id = "recruiter" class="btn btn-success btn-lg" style="width:1100px; height:100px; text-align:center;" href = "{% url 'professionalsignup' %}">Register as a Recruiter</button>
 
         <br>
         <br>
@@ -20,5 +20,13 @@
         </div>
 
 
+<script type="text/javascript">
+    document.getElementById('recruiter').onclick = function(){
+      location.href = '{% url 'usersignup' %}'
+    };
 
+    document.getElementById('freelancer').onclick = function(){
+      location.href = '{% url 'professionalsignup' %}'
+    };
+</script>
 {% endblock %}

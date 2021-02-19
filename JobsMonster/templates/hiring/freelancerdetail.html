@@ -12,16 +12,10 @@
                     <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
                     <div class="mt-3">
                       <h4>{{user.get_full_name}}</h4>
-					  {% if user.Specialization %}
                       <p class="text-secondary mb-1">{{user.Specialization}}</p>
                       <p class="text-muted font-size-sm">{{user.location}}</p>
-                      <a href="{% url 'updateprofile' user.id%}"><button class="btn btn-primary">Edit Profile</button></a>
-                      <button class="btn btn-outline-primary">View Projects</button>
-					  {% else %}
-                      <p class="text-muted font-size-sm">{{user.location}}</p>
-                      <a href="{% url 'updateprofile' user.id%}"><button class="btn btn-primary">Edit Profile</button></a>
-                      <button class="btn btn-outline-primary">Initiate Project</button>
-					  {% endif %}
+                      <a href="{% url 'hire' user.id%}"><button class="btn btn-primary">Hire</button></a>
+                      <button class="btn btn-outline-primary">Enroll in Project</button>
                     </div>
                   </div>
                 </div>
@@ -76,50 +70,6 @@
                   </div>
                 </div>
               </div>
-              {% if user.Specialization %}
-              <div class="row gutters-sm">
-                <div class="col-sm-6 mb-3">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h3 class="d-flex align-items-center mb-3">Hired posts</h3>
-                      <h5>Teacher Wanted</h5>
-                      
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 mb-3">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h3 class="d-flex align-items-center mb-3">My Projects</h6>
-                      <h5>My projects</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {% else %}
-              <div class="row gutters-sm">
-                <div class="col-sm-6 mb-3">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h3 class="d-flex align-items-center mb-3">My Jobs Posts</h3>
-                      {% for post in posts %}
-                      <div class="jobpost p-2">
-                        <h4>{{post}}</h4><p class="text-center">{{post.description}}</p><a href="{% url 'editpost' post.id%}"><button class="btn btn-success">Edit</button></a><a href="{% url 'deletepost' post.id%}"><button class="btn btn-danger ml-2">delete</button></a>
-                      </div>
-                      {% endfor %}
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6 mb-3">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h3 class="d-flex align-items-center mb-3">My Projects</h6>
-                      <h5>My projects</h5>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {% endif %}
             </div>
           </div>
         </div>

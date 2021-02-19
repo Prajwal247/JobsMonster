@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="banner-area py-7">
+    <!-- Content -->
+    <div class="container">
+        <div class="row  align-items-center">
+            <div class="col-md-12 col-lg-7 text-center text-lg-left">
+                <div class="main-banner">
+                    <!-- Heading -->
+                    <h1 class="display-4 mb-4 font-weight-normal">
+                        Best Optimized place to hire and start a freelancing career on your own
+                    </h1>
+
+                    <!-- Subheading -->
+                    <p class="lead mb-4">
+                      JobsMonster is the free website to host a Projects of various fields by hiring Freelancers of different skills and parameter also providing platform for Freelancers to find work
+                    </p>
+
+                    <!-- Button -->
+                    <p class="mb-0">
+                        <a href="#" target="_blank" class="btn btn-primary btn-circled">
+                            Learn More
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-lg-5 d-none d-lg-block">
+                <div class="banner-img-block">
+                    <img src="https://ideas.ted.com/wp-content/uploads/sites/3/2017/09/featured_art_istock_work_home.jpg?w=750" alt="banner-img" class="img-fluid">
+                </div>
+            </div>
+        </div> <!-- / .row -->
+    </div> <!-- / .container -->
+</section>
+<script type="text/javascript">
+    document.getElementById('homew').onclick = function(){
+      location.href = '{% url 'choice' %}';
+    }
+    document.getElementById('home').onclick = function(){
+      location.href = '{% url 'login' %}';
+    }
+</script>
+{% endblock%}

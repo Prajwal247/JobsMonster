@@ -3,23 +3,68 @@
 
 {% block content %}
 
-<div class="container">
-        <br>
-        <br>
-        <br>
-            <button type="button" id = "recruiter" class="btn btn-success btn-lg" style="width:1100px; height:100px; text-align:center;" href = "{% url 'professionalsignup' %}">Register as a Recruiter</button>
+<section class="banner-area py-7">
+  <!-- Content -->
+  <div class="container">
+      <div class="row  align-items-center">
+          <div class="col-md-12 col-lg-7 text-center text-lg-left">
+              <div class="main-banner">
+                  <!-- Heading -->
+                  <h1 class="display-4 mb-4 font-weight-normal">
+                      If you are here to hire and start project and post a job Sign in here as a Recruiter
+                  </h1>
 
-        <br>
-        <br>
-        <p>--------------------------------------------------------------------------------------------------------Or--------------------------------------------------------------------------------------------------</p>
-        <br>
+                  <p class="lead mb-4">
+                    Recruiter here is the Person given permissions to post a job here view a profile of the Freelancer and start a project and hire a multiple users in it
+                    </p>
 
+                  <p class="mb-0">
+                      <a href="{% url 'usersignup' %}"  class="btn btn-primary btn-circled">
+                          Sign in As Recruiter
+                      </a>
+                  </p>
+              </div>
+          </div>
 
-       
-            <button type="button" id = "freelancer" class="btn btn-primary btn-lg" style="width:1100px; height:100px; text-align:center;" href = "{% url 'professionalsignup' %}">Register as a Freelancer</button>
+          <div class="col-lg-5 d-none d-lg-block">
+              <div class="banner-img-block">
+                  <img src="https://www.coburgbanks.co.uk/wp-content/uploads/2017/09/hiring-signs.jpg" alt="banner-img" class="img-fluid">
+              </div>
+          </div>
+      </div> <!-- / .row -->
+  </div> <!-- / .container -->
+</section>
+<section class="banner-area py-7">
+  <!-- Content -->
+  <div class="container">
+      <div class="row  align-items-center">
+        <div class="col-lg-5 d-none d-lg-block">
+          <div class="banner-img-block">
+              <img src="https://us.123rf.com/450wm/vladwel/vladwel1604/vladwel160400059/55786227-hand-holding-need-a-job-placard-unemployed-person-searching-for-work-sign-banner-cartoon-flat-design.jpg?ver=6" alt="banner-img" class="img-fluid">
+          </div>
         </div>
+          <div class="col-md-12 col-lg-7 text-center text-lg-left">
+              <div class="main-banner">
+                  <!-- Heading -->
+                  <h1 class="display-4 mb-4 font-weight-normal">
+                    If you are looking for a freelancing career and want to be enrolled in a projects or a Personal job post
+                </h1>
 
+                  <p class="lead mb-4">
+                    Freelancer here is the person who is looking for a job and should have skills or specialization in their respective Field</p>
 
+                  <p class="mb-0">
+                      <a href="{% url 'professionalsignup' %}"  class="btn btn-primary btn-circled">
+                          Sign in As Freelancer
+                      </a>
+                  </p>
+              </div>
+          </div>
+
+          
+      </div> <!-- / .row -->
+  </div> <!-- / .container -->
+</section>
 <script type="text/javascript">
     document.getElementById('recruiter').onclick = function(){
       location.href = '{% url 'usersignup' %}'

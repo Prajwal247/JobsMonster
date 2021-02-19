@@ -22,23 +22,23 @@ class Jobpost(models.Model):
     description = models.TextField()
     date = models.DateField()
     category_choices = (
-        ('Recruiter','RE'),
-        ('Agriculture,Food and Natural Resources','AFNR'),
+        ('Recruiter','Recruiter'),
+        ('Agriculture,Food and Natural Resources','Agriculture,Food and Natural Resources'),
         ('Architecture and Construction','Architecture and Construction'),
-        ('Technology and Communications','TECH'),
-        ('Business Management and Administration','BMA'),
-        ('Education and Training','EDU'),
-        ('Finance','FIN'),
-        ('Government and Public Administration','GOV'),
-        ('Health Science','HS'),
-        ('Hospitality and Tourism','HT'),
+        ('Technology and Communications','Technology and Communications'),
+        ('Business Management and Administration','Business Management and Administration'),
+        ('Education and Training','Education and Training'),
+        ('Finance','Finance'),
+        ('Government and Public Administration','Government and Public Administration'),
+        ('Health Science','Health Science'),
+        ('Hospitality and Tourism','Hospitality and Tourism'),
         ('Human Service','Humanservice'),
-        ('Information Technology','IT'),
-        ('Law and Pulblic Safety','LAW'),
-        ('Manufacturing','MANU'),
-        ('Sales and Marketing','Sales'),
-        ('Engineering and Mathematics','Eng/Math'),
-        ('Transportation','Trans'),
+        ('Information Technology','Information Technology'),
+        ('Law and Pulblic Safety','Law and Pulblic Safety'),
+        ('Manufacturing','Manufacturing'),
+        ('Sales and Marketing','Sales and Marketing'),
+        ('Engineering and Mathematics','Engineering and Mathematics'),
+        ('Transportation','Transportation'),
     )
     category = models.CharField(max_length = 100, choices = category_choices)
     estimated_time = models.IntegerField(help_text = 'required time to complete the job in hr')

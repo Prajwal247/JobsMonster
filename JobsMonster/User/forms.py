@@ -5,6 +5,10 @@ from django.contrib.auth.models import User
 from .models import User
 
 # this is the form for the user to hire another person
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
+
 class UserRegistrationForm(UserCreationForm):
 
     password1 = forms.CharField(
@@ -30,7 +34,7 @@ class UserRegistrationForm(UserCreationForm):
     class Meta():
 
         model = User
-        fields = ['first_name','last_name','email','DOB','Nationality','password1','password2']
+        fields = ['first_name','last_name','email','DOB','Nationality','location','Gender','password1','password2']
 
         widgets = {
             'first_name':TextInput(attrs={
@@ -45,7 +49,9 @@ class UserRegistrationForm(UserCreationForm):
                 'class':'form-control',
                 'placeholder':'Please Provide the valid email',
                 'required':'True',
-            })
+            }),
+            
+            'DOB':DateInput(),
         }
 
 
@@ -80,10 +86,13 @@ class ProfessionalUserRegistrationForm(UserCreationForm):
         fields = ['first_name',
                   'last_name',
                   'email',
-                  
-                  'avatar',
-                  
-                  
+                  'Specialization',
+                  'Skills',
+                  'work_experience',
+                  'currently_employed',
+                  'pay_rate',
+                  'Gender',
+                  'location',
                   'password1',
                   'password2',]
         widgets = {

@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
-
 {% load crispy_forms_tags %}
-
 {% block content %}
 
 <div class="container-fluid">
@@ -9,18 +7,27 @@
     <div class="col-sm-9 col-md-9 col-lg-7 mx-auto">
       <div class="card card-signin my-5">
         <div class="card-body">
-          <h5 class="card-title text-center"><b>Post a Job</b></h5>
+          <h5 class="card-title text-center"><b>Update</b></h5>
           <form class="form-signin" method="POST">
             {% csrf_token %}
             <fieldset class="form-group">
-              <br/>
+              <br />
               {{ form|crispy }}
             </fieldset>
-            <div class="form-group">
+            <div class="form-group text-center">
               <button
-                class="btn btn-lg btn-primary btn-block text-uppercase text-center"
-                type="submit">
-                Post</button>
-              
+                class="btn btn-lg btn-primary btn-block text-uppercase"
+                type="submit"
+              >
+                Save</button
+              ><br /><br />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 {% endblock %}

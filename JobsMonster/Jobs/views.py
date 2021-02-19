@@ -8,9 +8,12 @@ def homepageview(request):
     current_user = request.user
     context = {'user':current_user, 'users':users,'jobs':jobs}
     if not current_user.is_authenticated:
-        return redirect('login')
+        return redirect('homepage')
     else:
         return render(request, 'jobs/home.html',context)
+        
+def homeview(request):
+    return render(request,'jobs/homepage.html')
 
 def testing(request):
     return render(request, 'base.html')

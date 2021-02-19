@@ -57,23 +57,23 @@ class User(AbstractBaseUser, PermissionsMixin):
     avatar = models.ImageField(upload_to = 'avatars/', null = True, blank =True)
 
     occupations_choices = (
-        ('Recruiter','RE'),
-        ('Agriculture,Food and Natural Resources','AFNR'),
+        ('Recruiter','Recruiter'),
+        ('Agriculture,Food and Natural Resources','Agriculture,Food and Natural Resources'),
         ('Architecture and Construction','Architecture and Construction'),
-        ('Technology and Communications','TECH'),
-        ('Business Management and Administration','BMA'),
-        ('Education and Training','EDU'),
-        ('Finance','FIN'),
-        ('Government and Public Administration','GOV'),
-        ('Health Science','HS'),
-        ('Hospitality and Tourism','HT'),
+        ('Technology and Communications','Technology and Communications'),
+        ('Business Management and Administration','Business Management and Administration'),
+        ('Education and Training','Education and Training'),
+        ('Finance','Finance'),
+        ('Government and Public Administration','Government and Public Administration'),
+        ('Health Science','Health Science'),
+        ('Hospitality and Tourism','Hospitality and Tourism'),
         ('Human Service','Humanservice'),
-        ('Information Technology','IT'),
-        ('Law and Pulblic Safety','LAW'),
-        ('Manufacturing','MANU'),
-        ('Sales and Marketing','Sales'),
-        ('Engineering and Mathematics','Eng/Math'),
-        ('Transportation','Trans'),
+        ('Information Technology','Information Technology'),
+        ('Law and Pulblic Safety','Law and Pulblic Safety'),
+        ('Manufacturing','Manufacturing'),
+        ('Sales and Marketing','Sales and Marketing'),
+        ('Engineering and Mathematics','Engineering and Mathematics'),
+        ('Transportation','Transportation'),
     )
 
     Specialization = models.CharField(max_length=100, choices=occupations_choices)
@@ -91,7 +91,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('O', 'Others')
     ))
 
-    pay_rate = models.FloatField(null = True, blank = True)
+    pay_rate = models.FloatField(null = True, blank = True,help_text="Your expected pay rate based hour wise")
 
 
     objects = UserManager()

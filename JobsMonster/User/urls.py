@@ -9,6 +9,8 @@ urlpatterns = [
     path('activate/<uidb64>/<token>/',views.activate,name='activate'),
     path('userchoice/', views.registrationchoice, name = 'choice'),
     path('userprofile/', views.userprofile, name = 'userprofile'),
+    path('userprofile/update/<int:id>', views.updateprofile, name='updateprofile'),
+
 
 
 ]

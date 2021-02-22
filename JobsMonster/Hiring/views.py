@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
-from .models import Jobpost
+from .models import Jobpost, Applicants
 from django.contrib.auth import get_user_model
 from . import forms
+from datetime import datetime
+from django.contrib import messages
+
 # Create your views here.
 
 def hiring(request, id):
@@ -80,4 +83,17 @@ def detail(request, id):
 
 def jobdetail(request, id):
     job = Jobpost.objects.get(pk=id)
-    return render(request, 'hiring/postdetail.html', {'job':job})
+    applicants = Applicants.objects.filter(jobpost_id=job)
+    return render(request, 'hiring/postdetail.html', {'job':job, 'applicants':applicants})
+
+def applyjob(request, jid):
+    user = request.user
+    job = Jobpost.objects.get(pk=jid)
+    post = Applicants.objects.filter(user_id=user)
+    if not post:
+        post = Applicants(user_id=user, jobpost_id=job, applied_date=datetime.now())
+        post.save()
+    else:
+        messages.add_message(request, messages.INFO, 'Already applied for this Job')
+        return redirect('home')
+    return redirect('userprofile')

@@ -13,7 +13,8 @@ from django.core.mail import send_mail
 from django.conf import settings
 from .models import User
 from django.contrib.auth import get_user_model
-from Hiring.models import Jobpost
+from Hiring.models import Jobpost, Applicants
+from projects.models import Project, ProjectManpowers
 
 # Create your views here.
 # logout function
@@ -69,26 +70,25 @@ def professionalsignuppage(request):
         form = ProfessionalUserRegistrationForm(request.POST, request.FILES)
         
         if form.is_valid():
-        
             form.save()
-            password_validation.validate_password(user.password)
-            user.is_active = False
-            user.save()
-            current_site = get_current_site(request)
-            mail_subject = 'Activate your Jobsmonster account.'
-            html_message = render_to_string('user/acc_active_email.html',{
-                'user': user,
-                'domain': current_site.domain,
-                'uid':urlsafe_base64_encode(force_bytes(user.pk)).encode().decode(),
-                'token' : account_activation_token.make_token(user),
-            })
-            email = form.cleaned_data.get('email')
-            to_email = [email]
-            send_mail(mail_subject,
-                      message='Activate your account',
-                      from_email='prazzwalthapa87@gmail.com',
-                      recipient_list=to_email,
-                      html_message=html_message)
+            # password_validation.validate_password(user.password)
+            # user.is_active = False
+            # user.save()
+            # current_site = get_current_site(request)
+            # mail_subject = 'Activate your Jobsmonster account.'
+            # html_message = render_to_string('user/acc_active_email.html',{
+            #     'user': user,
+            #     'domain': current_site.domain,
+            #     'uid':urlsafe_base64_encode(force_bytes(user.pk)).encode().decode(),
+            #     'token' : account_activation_token.make_token(user),
+            # })
+            # email = form.cleaned_data.get('email')
+            # to_email = [email]
+            # send_mail(mail_subject,
+            #           message='Activate your account',
+            #           from_email='prazzwalthapa87@gmail.com',
+            #           recipient_list=to_email,
+            #           html_message=html_message)
             return redirect('login')
         else:
             print("helloadsfas")    
@@ -133,7 +133,11 @@ def registrationchoice(request):
 def userprofile(request):
     loggedin_user = User.objects.get(id=request.user.id)
     posts = Jobpost.objects.filter(posted_by=loggedin_user)
-    return render(request,'user/profile.html',{'loggedin_user':loggedin_user,'posts':posts})
+    applied_fors = Applicants.objects.filter(user_id=loggedin_user)
+    hired_projects = ProjectManpowers.objects.filter(user_id=loggedin_user)
+    print(hired_projects)
+    projects = Project.objects.filter(initiated_by=loggedin_user)
+    return render(request,'user/profile.html',{'loggedin_user':loggedin_user,'posts':posts, 'projects':projects,'hired_projects':hired_projects,'applied_fors':applied_fors})
 
 def updateprofile(request, id):
     if request.method == 'POST':

@@ -8,13 +8,13 @@
             <a href="{% url 'postjob' %}"><button class="btn btn-primary" id="Post">Post a Job</button></a>
         </div>
         <div class="col-4">
-            <a href=""><button class="btn btn-primary">Initiate Project</button></a>
+            <a href="{% url 'initiateproject' %}"><button class="btn btn-primary">Initiate Project</button></a>
         </div>
     </div>
 <div class="container mt-5 mb-5">
     <div class="d-flex justify-content-center row">
         <div class="col-md-10">
-            {% for user in users %}
+            {% for user in page_obj_user %}
             <div class="row p-2 bg-white border rounded">
                 <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="https://png.pngtree.com/element_origin_min_pic/16/12/07/921c6d12350e366ee4af07eb9055ab40.jpg"></div>
                 <div class="col-md-6 mt-1">
@@ -41,6 +41,23 @@
         </div>
     </div>
 </div>
+</div>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj_user.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj_user.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj_user.number }} of {{ page_obj_user.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj_user.has_next %}
+            <a href="?page={{ page_obj_user.next_page_number }}">next</a>
+            <a href="?page={{ page_obj_user.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
 </div>
 
 <script>

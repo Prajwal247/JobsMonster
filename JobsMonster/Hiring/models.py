@@ -43,6 +43,14 @@ class Jobpost(models.Model):
     category = models.CharField(max_length = 100, choices = category_choices)
     estimated_time = models.IntegerField(help_text = 'required time to complete the job in hr')
     posted_by = models.ForeignKey(User, on_delete = models.CASCADE)
-
     def __str__(self):
         return self.title
+
+class Applicants(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    jobpost_id = models.ForeignKey(Jobpost, on_delete=models.CASCADE)
+    applied_date = models.DateField()
+
+    def __str__(self):
+        return f"applicants+{self.jobpost_id}"
+

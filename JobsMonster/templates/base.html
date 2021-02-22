@@ -70,14 +70,44 @@
                             <p>Email Us</p>
                         </div>
                     </div>
+                    {% if user.is_authenticated %}
                     <div class="top-info-block d-inline-flex">
                         <div class="icon-block">
                             <i class="ti-time"></i>
                         </div>
                         <div class="info-block">
-                            <h5 class="font-weight-500">24/7 always in your service</h5>
+                            <a href="{% url 'logout' %}"><button class="btn btn-primary">Logout</button></a>
                         </div>
                     </div>
+                    {% else %}
+                    <div class="top-info-block d-inline-flex">
+                        <div class="icon-block">
+                            <i class="ti-time"></i>
+                        </div>
+                        <div class="info-block">
+                            <a href="{% url 'login' %}"><button class="btn btn-primary">Login</button></a>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    <div class="top-info-block d-inline-flex">
+                        <div class="icon-block">
+                            <i class="ti-time"></i>
+                        </div>
+                        <div class="info-block">
+                            <a href="{% url 'userprofile' %}"><button class="btn btn-primary">Profile</button></a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="top-info-block d-inline-flex">
+                        <div class="icon-block">
+                            <i class="ti-time"></i>
+                        </div>
+                        <div class="info-block">
+                            <a href="{% url 'choice' %}"><button class="btn btn-primary">Register</button></a>
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -111,34 +141,6 @@
                         <li class="nav-item ">
                             <a href="service.html" class="nav-link js-scroll-trigger">
                                 Services
-                            </a>
-                        </li>
-                        {% if user.is_authenticated %}
-                        <li class="nav-item ">
-                            <a href="{% url 'logout' %}" class="nav-link js-scroll-trigger">
-                                Logout
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a href="{% url 'userprofile' %}" class="nav-link js-scroll-trigger">
-                                Profile
-                            </a>
-                        </li>
-                        {% else %}
-                        <li class="nav-item ">
-                            <a href="{% url 'login' %}" class="nav-link js-scroll-trigger">
-                                Login
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a href="{% url 'choice' %}" class="nav-link js-scroll-trigger">
-                                Register
-                            </a>
-                        </li>
-                        {% endif %}
-                        <li class="nav-item ">
-                            <a href="contact.html" class="nav-link">
-                                Contact
                             </a>
                         </li>
                     </ul>

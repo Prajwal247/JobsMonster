@@ -1,11 +1,6 @@
+{% extends 'base.html' %}
 
-{% if messages %}
-<ul class="messages text-center">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><h3>{{ message }}</h3></li>
-    {% endfor %}
-</ul>
-{% endif %}
+{% block content%}
 <div class="container">
     <div class="row">
         <div class="col-6">
@@ -17,7 +12,8 @@
     </div>
     <br>
     <br>
-    {% for job in page_obj_jobs %}
+    {% if jobs %}
+    {% for job in jobs %}
         <div class="row jobs">
             <div class="col-lg-10">
         <h2 class="job-title">{{job.title|title}}</h2>
@@ -29,6 +25,9 @@
     </div>
 </div>
     {% endfor %}
+    {% else %}
+    <h4 class="text-center">No jobs available of your category</h4>
+    {% endif %}
 </div>
 <div class="text-center">
 <div class="pagination">
@@ -50,4 +49,5 @@
 </div>
 </div>
 
+{% endblock %}
 

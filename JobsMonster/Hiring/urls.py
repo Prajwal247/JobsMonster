@@ -9,6 +9,8 @@ urlpatterns = [
     path('detail/user/<int:id>', views.detail, name='detail'),
     path('jobdetail/<int:id>', views.jobdetail, name='jobdetail'),
     path('applyjob/<int:jid>', views.applyjob, name='applyjob'),
+    path('appliedjob/<int:id>', views.applyjobdetail, name='appliedjobdetail'),
+    path('hiredprojectdetail/<int:id>', views.hiredprojectdetail, name='hiredprojectdetail'),
 
-
+    # path('decline/', views.declineapplication, name ='declineapplication'),
 ]

@@ -42,7 +42,7 @@ def loginpage(request):
 
 def usersignuppage(request):
     if request.method == 'POST':
-        form = UserRegistrationForm(request.POST)
+        form = UserRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             # password_validation.validate_password(user.password)

@@ -4,7 +4,8 @@ from .models import Project, ProjectManpowers
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.core.mail import send_mail
-
+from django.core.paginator import Paginator
+from django.shortcuts import get_object_or_404
 
 
 # Create your views here.
@@ -33,10 +34,20 @@ def editproject(request, id):
 
 def projectdetail(request, id):
     users  = get_user_model().objects.exclude(Specialization='')
-    project = Project.objects.get(pk=id)
+    project = get_object_or_404(Project, pk=id)
     users=users.order_by('?')
     manpowers=ProjectManpowers.objects.filter(project_id=project)
-    return render(request, 'projects/projectdetail.html', {'project':project,'users':users,'manpowers':manpowers})
+    # paginator for manpower
+    paginator_manpower = Paginator(manpowers,4)
+    page_number_manpower = request.GET.get('page')
+    page_obj_manpowers = paginator_manpower.get_page(page_number_manpower)
+
+    # paginator for suggestions
+    paginator_users = Paginator(users, 3)
+    page_number_users = request.GET.get('page')
+    page_obj_users = paginator_users.get_page(page_number_users)
+
+    return render(request, 'projects/projectdetail.html', {'project':project,'page_obj_users':page_obj_users,'page_obj_manpowers':page_obj_manpowers})
 
 def deleteproject(request, id):
     project = Project.objects.get(pk=id)
@@ -46,9 +57,12 @@ def deleteproject(request, id):
 
 def enroll(request, pid, uid):
     manpower = get_user_model().objects.get(pk=uid)
-    project = Project.objects.get(pk=pid)
+    project = get_object_or_404(Project, pk=pid)
     mp= ProjectManpowers.objects.filter(user_id=manpower, project_id=project)
     if not mp:
+        u = get_user_model().objects.get(pk=uid)
+        u.total_hiring+=1
+        u.save()
         mp= ProjectManpowers(user_id=manpower, project_id=project)
         mp.save()
     else:
@@ -56,7 +70,18 @@ def enroll(request, pid, uid):
     users  = get_user_model().objects.exclude(Specialization='')
     users=users.order_by('?')
     manpowers=ProjectManpowers.objects.filter(project_id=project)
-    return render(request, 'projects/projectdetail.html',{'project':project,'users':users,'manpowers':manpowers,})   
+    # paginator for manpower
+    paginator_manpower = Paginator(manpowers,4)
+    page_number_manpower = request.GET.get('page')
+    page_obj_manpowers = paginator_manpower.get_page(page_number_manpower)
+
+    # paginator for suggestions
+    paginator_users = Paginator(users, 3)
+    page_number_users = request.GET.get('page')
+    page_obj_users = paginator_users.get_page(page_number_users)
+
+    return render(request, 'projects/projectdetail.html', {'project':project,'page_obj_users':page_obj_users,'page_obj_manpowers':page_obj_manpowers})
+ 
 
 def terminate(request, uid, pid):
     project = Project.objects.get(pk=pid)
@@ -72,7 +97,18 @@ def terminate(request, uid, pid):
     users  = get_user_model().objects.exclude(Specialization='')
     users=users.order_by('?')
     manpowers=ProjectManpowers.objects.filter(project_id=project)
-    return render(request, 'projects/projectdetail.html', {'project':project,'users':users,'manpowers':manpowers})
+     # paginator for manpower
+    paginator_manpower = Paginator(manpowers,4)
+    page_number_manpower = request.GET.get('page')
+    page_obj_manpowers = paginator_manpower.get_page(page_number_manpower)
+
+    # paginator for suggestions
+    paginator_users = Paginator(users, 3)
+    page_number_users = request.GET.get('page')
+    page_obj_users = paginator_users.get_page(page_number_users)
+
+    return render(request, 'projects/projectdetail.html', {'project':project,'page_obj_users':page_obj_users,'page_obj_manpowers':page_obj_manpowers})
+ 
 
 
 
@@ -84,15 +120,33 @@ def sendupdates(request, pid):
         if form.is_valid():
             subject=form.cleaned_data['subject']
             description=form.cleaned_data['description']
-            user=ProjectManpowers.objects.get(project_id=pid)
-            users=user.user_id
-            send_mail(
-            subject=subject,
-            message=description,
-            from_email=sender,
-            recipient_list=[users],
-            fail_silently=True,
-        )
+            users=ProjectManpowers.objects.filter(project_id=pid)
+            user = []
+            for u in users:
+                user.append(u.user_id.email)  
+            for u in user:
+                send_mail(
+                subject=subject,
+                message=description,
+                from_email=sender,
+                recipient_list=[u],
+                fail_silently=True,
+                 )
             form.save()
-            return redirect('projectdetail')
-    return render(request, 'project/updateform.html',{'form':form})
+            users  = get_user_model().objects.exclude(Specialization='')
+            project = Project.objects.get(pk=pid)
+            users=users.order_by('?')
+            manpowers=ProjectManpowers.objects.filter(project_id=project)
+             # paginator for manpower
+            paginator_manpower = Paginator(manpowers,4)
+            page_number_manpower = request.GET.get('page')
+            page_obj_manpowers = paginator_manpower.get_page(page_number_manpower)
+
+            # paginator for suggestions
+            paginator_users = Paginator(users, 3)
+            page_number_users = request.GET.get('page')
+            page_obj_users = paginator_users.get_page(page_number_users)
+
+            return render(request, 'projects/projectdetail.html', {'project':project,'page_obj_users':page_obj_users,'page_obj_manpowers':page_obj_manpowers})
+ 
+    return render(request, 'projects/updateform.html',{'form':form})

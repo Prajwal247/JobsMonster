@@ -90,7 +90,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('F', 'Female'),
         ('O', 'Others')
     ))
-
+    total_hiring = models.IntegerField(null = True, blank=True, default='0')
     pay_rate = models.FloatField(null = True, blank = True,help_text="Your expected pay rate based hour wise")
 
 

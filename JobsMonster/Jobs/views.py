@@ -9,7 +9,7 @@ def homepageview(request):
     print(users)
     current_user = request.user
     # Paginator for jobspost
-    paginator_jobs = Paginator(jobs,2)
+    paginator_jobs = Paginator(jobs,4)
     page_number_jobs = request.GET.get('page')
     page_obj_jobs = paginator_jobs.get_page(page_number_jobs)
     # paginator for users
@@ -35,3 +35,11 @@ def jobcategory(request, id):
     jobs = Jobpost.objects.filter(category = categori)
     print(jobs)
     return render(request, 'jobs/jobscategory.html', {'jobs':jobs})
+
+# category functions
+
+
+def about(request):
+    return render(request, 'about.html')
+    
+

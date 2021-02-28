@@ -19,6 +19,7 @@
                 <p class="text-center">{{applicant.user_id.Specialization}}</p>
                 <div class="text-center">
                 <a href="{% url 'detail' applicant.user_id.id %}"><button class="btn btn-primary">Details</button></a>
+                <a href=""><button class="btn btn-danger">Decline</button></a>
                 </div>
             </div>
             {% endfor %}

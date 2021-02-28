@@ -1,4 +1,5 @@
-
+{% extends 'base.html' %}
+{% block content %}
 <div class="container">
     <div class="row">
         <div class="col-4">
@@ -7,18 +8,17 @@
                  Choose Category
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="{% url 'home' %}">All</a>
-                  <a class="dropdown-item" href="{% url 'agriculture' %}">Agriculture</a>
-                  <a class="dropdown-item" href="{% url 'architecture' %}">Architecture and Construction</a>
-                  <a class="dropdown-item" href="{% url 'technology' %}">Technology and Communication</a>
-                  <a class="dropdown-item" href="{% url 'sales' %}">Sales and Marketing</a>
-                  <a class="dropdown-item" href="{% url 'business' %}">Business</a>
-                  <a class="dropdown-item" href="{% url 'education' %}">Education</a>
-                  <a class="dropdown-item" href="{% url 'health' %}">Health</a>
-                  <a class="dropdown-item" href="{% url 'law' %}">Law</a>
-                  <a class="dropdown-item" href="{% url 'transportation' %}">Transportation</a>
-                  <a class="dropdown-item" href="{% url 'it' %}">Information Technology</a>
-
+                    <a class="dropdown-item" href="{% url 'home' %}">All</a>
+                    <a class="dropdown-item" href="{% url 'agriculture' %}">Agriculture</a>
+                    <a class="dropdown-item" href="{% url 'architecture' %}">Architecture and Construction</a>
+                    <a class="dropdown-item" href="{% url 'technology' %}">Technology and Communication</a>
+                    <a class="dropdown-item" href="{% url 'sales' %}">Sales and Marketing</a>
+                    <a class="dropdown-item" href="{% url 'business' %}">Business</a>
+                    <a class="dropdown-item" href="{% url 'education' %}">Education</a>
+                    <a class="dropdown-item" href="{% url 'health' %}">Health</a>
+                    <a class="dropdown-item" href="{% url 'law' %}">Law</a>
+                    <a class="dropdown-item" href="{% url 'transportation' %}">Transportation</a>
+                    <a class="dropdown-item" href="{% url 'it' %}">Information Technology</a>
                 </div>
               </div>
         </div>
@@ -32,7 +32,8 @@
 <div class="container mt-5 mb-5">
     <div class="d-flex justify-content-center row">
         <div class="col-md-10">
-            {% for user in page_obj_user %}
+            {% if users %}
+            {% for user in users %}
             <div class="row p-2 bg-white border rounded">
                 <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="https://png.pngtree.com/element_origin_min_pic/16/12/07/921c6d12350e366ee4af07eb9055ab40.jpg"></div>
                 <div class="col-md-6 mt-1">
@@ -55,25 +56,28 @@
             </div>
             <br>
             {% endfor %}
-            
+            {% else %}
+            <h5 class="text-center">No freelancer are available of this category</h5>
+            {% endif %}
         </div>
+
     </div>
 </div>
 </div>
 <div class="pagination">
     <span class="step-links">
-        {% if page_obj_user.has_previous %}
+        {% if users.has_previous %}
             <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ page_obj_user.previous_page_number }}">previous</a>
+            <a href="?page={{ users.previous_page_number }}">previous</a>
         {% endif %}
 
         <span class="current">
-            Page {{ page_obj_user.number }} of {{ page_obj_user.paginator.num_pages }}.
+            Page {{ users.number }} of {{ users.paginator.num_pages }}.
         </span>
 
-        {% if page_obj_user.has_next %}
-            <a href="?page={{ page_obj_user.next_page_number }}">next</a>
-            <a href="?page={{ page_obj_user.paginator.num_pages }}">last &raquo;</a>
+        {% if users.has_next %}
+            <a href="?page={{ users.next_page_number }}">next</a>
+            <a href="?page={{ users.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     </span>
 </div>
@@ -81,4 +85,4 @@
 <script>
    
 </script>
-
+{% endblock %}

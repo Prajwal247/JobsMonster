@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from .models import Jobpost, Applicants
+from projects.models import Project, ProjectManpowers
 from django.contrib.auth import get_user_model
 from . import forms
 from datetime import datetime
@@ -23,6 +24,8 @@ def hiring(request, id):
             subject="%s wants to hire you"%(sender)
             message="%s wants to hire you for %s for the estimated time of %s hrs on %s\n Description: %s"%(sender,required_for,estimated_time,date,description)
             user=get_user_model().objects.get(pk=id)
+            user.total_hiring+=1
+            user.save()
             send_mail(
             subject=subject,
             message=message,
@@ -97,3 +100,34 @@ def applyjob(request, jid):
         messages.add_message(request, messages.INFO, 'Already applied for this Job')
         return redirect('home')
     return redirect('userprofile')
+
+# def declineapplication(request, uid, jid):
+    user = get_user_model().objects.get(pk=uid)
+    post = Jobpost.objects.get(pk=jid)
+    send_mail(
+            subject="About the application declined",
+            message="your application to the post %s have been Rejectd thank you for applying"%(post),
+            from_email='prazzwalthapa87@gmail.com',
+            recipient_list=[user],
+            fail_silently=True,
+        )
+
+    postt = Applicants.objects.get(user_id=uid, jobpost_id=jid)
+    postt.delete()
+    job = Jobpost.objects.get(pk=jid)
+    applicants = Applicants.objects.filter(jobpost_id=job)
+    return render(request, 'hiring/postdetail.html', {'job':job, 'applicants':applicants})
+    
+def applyjobdetail(request, id):
+    job = Jobpost.objects.get(pk=id)
+    applicants = Applicants.objects.filter(jobpost_id=job)
+    print(applicants)
+    length = len(applicants)
+    return render(request, 'appliedjob.html',{'job':job, 'length':length,})
+
+def hiredprojectdetail(request, id):
+    project = Project.objects.get(pk=id)
+    breakpoint()
+    manpowers = ProjectManpowers.objects.filter(project_id=project)
+    length = len(manpowers)
+    return render(request, 'hiredprojectdetail.html', {'project':project, 'length':length,})

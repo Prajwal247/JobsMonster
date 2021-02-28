@@ -53,6 +53,7 @@ SYSTEM_APPS = [
     'occupations',
     'Hiring',
     'projects',
+    'category',
 ]
 INSTALLED_APPS = DJANGO_APPS + VENDER_APPS + SYSTEM_APPS
 

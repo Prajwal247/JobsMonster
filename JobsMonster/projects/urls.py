@@ -10,4 +10,5 @@ urlpatterns = [
     path('terminate/<int:uid>/<int:pid>', views.terminate, name="terminate"),
     path('sendupdates/<int:pid>', views.sendupdates, name ='sendupdates'),
 
+
 ]

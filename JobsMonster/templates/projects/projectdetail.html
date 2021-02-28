@@ -4,11 +4,9 @@
 
 {% block content %}
 {% if messages %}
-<ul class="messages text-center">
     {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}><h3>{{ message }}</h3></li>
+    <p class="text-center alert alert-danger">{{ message }}</p>
     {% endfor %}
-</ul>
 {% endif %}
 <div class="container">
     <div class="text-center">
@@ -19,7 +17,7 @@
             <h3 class="text-center border-bottom">
                 Participants
             </h3>
-            {% for manpower in manpowers %}
+            {% for manpower in page_obj_manpowers %}
             <div class="mt-2 border p-3">
                 <h5 class="name text-center">{{manpower.user_id}}</h5>
                 <p class="text-center">Details</p>
@@ -29,6 +27,23 @@
                 </div>
             </div>
             {% endfor %}
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj_manpowers.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ page_obj_manpowers.previous_page_number }}">previous</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        Page {{ page_obj_manpowers.number }} of {{ page_obj_manpowers.paginator.num_pages }}.
+                    </span>
+            
+                    {% if page_obj_manpowers.has_next %}
+                        <a href="?page={{ page_obj_manpowers.next_page_number }}">next</a>
+                        <a href="?page={{ page_obj_manpowers.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
         </div>
         <div class="col-8 border ml-2">
             <div class="text-center">
@@ -40,13 +55,13 @@
                 <h5>Total Estimated Manpowers: {{project.estimated_manpowers}} Specialists</h5>
             </div>
             <div class="hiring">
-                {% for user in users %}
+                {% for user in page_obj_users %}
                 <div class="row p-2 bg-white border rounded">
                     <div class="col-md-3 mt-1"><img class="img-fluid img-responsive rounded product-image" src="https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png"></div>
                     <div class="col-md-6 mt-1">
                         <h5>{{user.get_full_name}}</h5>
                         <div class="d-flex flex-row">
-                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>Total Hiring: 0</span>
+                            <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>Total Hiring: {{user.total_hiring}}</span>
                         </div>
                         <div class="mt-1 mb-1 spec-1"><span>{{user.Specialization}}</span><span></span><span></span><span></span><span><br></span></div>
                         <div class="mt-1 mb-1 spec-1"><span></span><span></span><span></span><span></span><span><br></span></div>
@@ -62,6 +77,23 @@
                     </div>
                 </div>
                 {% endfor %}
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if page_obj_users.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ page_obj_users.previous_page_number }}">previous</a>
+                        {% endif %}
+                
+                        <span class="current">
+                            Page {{ page_obj_users.number }} of {{ page_obj_users.paginator.num_pages }}.
+                        </span>
+                
+                        {% if page_obj_users.has_next %}
+                            <a href="?page={{ page_obj_users.next_page_number }}">next</a>
+                            <a href="?page={{ page_obj_users.paginator.num_pages }}">last &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
             </div>
         </div>
     </div>

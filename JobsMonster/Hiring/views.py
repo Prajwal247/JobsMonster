@@ -92,7 +92,7 @@ def jobdetail(request, id):
 def applyjob(request, jid):
     user = request.user
     job = Jobpost.objects.get(pk=jid)
-    post = Applicants.objects.filter(user_id=user)
+    post = Applicants.objects.filter(jobpost_id=job,user_id=user)
     if not post:
         post = Applicants(user_id=user, jobpost_id=job, applied_date=datetime.now())
         post.save()
@@ -102,21 +102,21 @@ def applyjob(request, jid):
     return redirect('userprofile')
 
 # def declineapplication(request, uid, jid):
-    user = get_user_model().objects.get(pk=uid)
-    post = Jobpost.objects.get(pk=jid)
-    send_mail(
-            subject="About the application declined",
-            message="your application to the post %s have been Rejectd thank you for applying"%(post),
-            from_email='prazzwalthapa87@gmail.com',
-            recipient_list=[user],
-            fail_silently=True,
-        )
+    # user = get_user_model().objects.get(pk=uid)
+    # post = Jobpost.objects.get(pk=jid)
+    # send_mail(
+    #         subject="About the application declined",
+    #         message="your application to the post %s have been Rejectd thank you for applying"%(post),
+    #         from_email='prazzwalthapa87@gmail.com',
+    #         recipient_list=[user],
+    #         fail_silently=True,
+    #     )
 
-    postt = Applicants.objects.get(user_id=uid, jobpost_id=jid)
-    postt.delete()
-    job = Jobpost.objects.get(pk=jid)
-    applicants = Applicants.objects.filter(jobpost_id=job)
-    return render(request, 'hiring/postdetail.html', {'job':job, 'applicants':applicants})
+    # postt = Applicants.objects.get(user_id=uid, jobpost_id=jid)
+    # postt.delete()
+    # job = Jobpost.objects.get(pk=jid)
+    # applicants = Applicants.objects.filter(jobpost_id=job)
+    # return render(request, 'hiring/postdetail.html', {'job':job, 'applicants':applicants})
     
 def applyjobdetail(request, id):
     job = Jobpost.objects.get(pk=id)

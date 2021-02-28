@@ -43,3 +43,10 @@ def about(request):
     return render(request, 'about.html')
     
 
+
+def developers(request):
+    return render(request, 'developers.html')
+
+
+def contact(request):
+    return render(request, 'contact.html')

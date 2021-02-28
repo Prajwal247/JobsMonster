@@ -139,8 +139,13 @@
                             </a>
                         </li>
                         <li class="nav-item ">
-                            <a href="service.html" class="nav-link js-scroll-trigger">
-                                Services
+                            <a href="{% url 'developers'%}" class="nav-link js-scroll-trigger">
+                                Developers
+                            </a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="{% url 'contact'%}" class="nav-link js-scroll-trigger">
+                                Contact
                             </a>
                         </li>
                     </ul>
@@ -174,8 +179,8 @@
                     <ul class="footerabout">
                         <li> <h5> <a href="#" style="margin-top: 5em"> ABOUT US</a> <h5></li>
                         <li> <h5><a href="#"> Categories</a> <h5></li>
-                        <li> <h5><a href="#"> ContactUs </a> <h5></li>
-                        <li> <h5><a href="#"> Developers </a> <h5></li>
+                        <li> <h5><a href="{% url 'contact' %}"> ContactUs </a> <h5></li>
+                        <li> <h5><a href="{% url 'developers' %}"> Developers </a> <h5></li>
                     </ul>
                 </div>
                

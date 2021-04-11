@@ -76,7 +76,7 @@
                             <i class="ti-time"></i>
                         </div>
                         <div class="info-block">
-                            <a href="{% url 'logout' %}"><button class="btn btn-primary">Logout</button></a>
+                            <a href="{% url 'logout' %}" onclick="return confirm('are you sure to logout?')"><button class="btn btn-primary">Logout</button></a>
                         </div>
                     </div>
                     {% else %}
@@ -177,8 +177,7 @@
                 </div>
                 <div class="col-lg-3 col-sm-2 col-xs-3">
                     <ul class="footerabout">
-                        <li> <h5> <a href="#" style="margin-top: 5em"> ABOUT US</a> <h5></li>
-                        <li> <h5><a href="#"> Categories</a> <h5></li>
+                        <li> <h5> <a href="{% url 'about' %}" style="margin-top: 5em"> About us</a> <h5></li>
                         <li> <h5><a href="{% url 'contact' %}"> ContactUs </a> <h5></li>
                         <li> <h5><a href="{% url 'developers' %}"> Developers </a> <h5></li>
                     </ul>

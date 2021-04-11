@@ -15,7 +15,7 @@
                       <p class="text-secondary mb-1">{{user.Specialization}}</p>
                       <p class="text-muted font-size-sm">{{user.location}}</p>
                       <a href="{% url 'hire' user.id%}"><button class="btn btn-primary">Hire</button></a>
-                      <button class="btn btn-outline-primary">Enroll in Project</button>
+                      <a href="{% url 'userprofile' %}"><button class="btn btn-outline-primary">Enroll in  Project</button></a>
                     </div>
                   </div>
                 </div>
@@ -70,6 +70,12 @@
                   </div>
                 </div>
               </div>
+              <div class="text-center">
+
+                <a href="{% url 'biodata' user.id %}"><button class="btn btn-primary text-center">View BioData</button></a>
+              </div>
+
+
             </div>
           </div>
         </div>

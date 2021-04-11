@@ -88,6 +88,7 @@ class ProfessionalUserRegistrationForm(UserCreationForm):
                   'email',
                   'Specialization',
                   'Skills',
+                  'BioData',
                   'work_experience',
                   'currently_employed',
                   'pay_rate',

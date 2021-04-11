@@ -18,8 +18,7 @@
                 <h5 class="name text-center">{{applicant.user_id}}</h5>
                 <p class="text-center">{{applicant.user_id.Specialization}}</p>
                 <div class="text-center">
-                <a href="{% url 'detail' applicant.user_id.id %}"><button class="btn btn-primary">Details</button></a>
-                <a href=""><button class="btn btn-danger">Decline</button></a>
+                <a href="{% url 'detail' applicant.user_id.id %}"><button class="btn btn-primary my-1 mb-3">Details</button></a>
                 </div>
             </div>
             {% endfor %}
@@ -33,6 +32,18 @@
                 <h5>Project Duration: {{job.estimated_time}} Hours</h5>
                 <h5>Categories: {{job.category}}</h5>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-4">
+    
+            </div>
+            <div class=" text-center col-4 p-3 border">
+                <h5 class="text-center">Delete post? no way around once done</h5>
+                <p></p>
+                <br>
+                <a class="text-center" href="{% url 'deletepost' job.id %}" onclick="return confirm('Are you sure to delete it you cannot undo it')"><button class="btn btn-danger mx-5">Delete Jobpost</button></a>
+            </div>
+            <div class="col-4"></div>
         </div>
     </div>
 </div>

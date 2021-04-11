@@ -6,6 +6,8 @@ from django.contrib.auth import get_user_model
 from . import forms
 from datetime import datetime
 from django.contrib import messages
+from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse, HttpResponseNotFound
 
 # Create your views here.
 
@@ -84,6 +86,19 @@ def detail(request, id):
     user = get_user_model().objects.get(pk=id)
     return render(request, 'hiring/freelancerdetail.html',{'user':user})
 
+def biodataview(request, id):
+    fs = FileSystemStorage()
+    file = get_user_model().objects.get(pk=id)
+    filename = str(file.BioData)
+    if fs.exists(filename):
+        with fs.open(filename) as pdf:
+            response = HttpResponse(pdf, content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment/filename="mypdf"'
+
+            return response
+    else:
+        return HttpResponseNotFound("no such file exists in the database")
+
 def jobdetail(request, id):
     job = Jobpost.objects.get(pk=id)
     applicants = Applicants.objects.filter(jobpost_id=job)
@@ -102,21 +117,19 @@ def applyjob(request, jid):
     return redirect('userprofile')
 
 # def declineapplication(request, uid, jid):
-    # user = get_user_model().objects.get(pk=uid)
-    # post = Jobpost.objects.get(pk=jid)
-    # send_mail(
-    #         subject="About the application declined",
-    #         message="your application to the post %s have been Rejectd thank you for applying"%(post),
-    #         from_email='prazzwalthapa87@gmail.com',
-    #         recipient_list=[user],
-    #         fail_silently=True,
-    #     )
-
-    # postt = Applicants.objects.get(user_id=uid, jobpost_id=jid)
-    # postt.delete()
-    # job = Jobpost.objects.get(pk=jid)
-    # applicants = Applicants.objects.filter(jobpost_id=job)
-    # return render(request, 'hiring/postdetail.html', {'job':job, 'applicants':applicants})
+#     user = get_user_model().objects.get(pk=uid)
+#     post = Jobpost.objects.get(pk=jid)
+#     send_mail(
+#             subject="About the application declined",
+#             message="your application to the post %s have been Rejectd thank you for applying"%(post),
+#             from_email='prazzwalthapa87@gmail.com',
+#             recipient_list=[user],
+#             fail_silently=True,
+#         )
+#     postt = Applicants.objects.get(user_id=uid, jobpost_id=pid)
+#     postt.delete()
+#     applicants = Applicants.objects.filter(jobpost_id=pid)
+#     return redirect('home')
     
 def applyjobdetail(request, id):
     job = Jobpost.objects.get(pk=id)

@@ -21,7 +21,9 @@ from projects.models import Project, ProjectManpowers
 @login_required
 def Logoutview(request):
     logout(request)
-    return HttpResponseRedirect(reverse('home'))
+    messages.add_message(request, messages.INFO,'You need to login in first')
+    return HttpResponseRedirect(reverse('login'))
+
 
 def loginpage(request):
     if request.method == 'POST':
@@ -159,3 +161,19 @@ def updateprofile(request, id):
         else:
             form = UserRegistrationForm(instance=profileid)
     return render(request, 'user/updateprofile.html', {'form':form})
+
+def job_recommend(request):
+    page = request.GET.get("page", 1)
+    user_id = request.session.get("user_id")
+    cache_key = ITEM_CACHE.format(user_id=user_id)
+    job_list = cache.get(cache_key)
+    if job is None:
+        job_list = recommend_by_post_id(user_id)
+        cache.set(cache_key, job_list, 60 * 5)
+    
+    job = job_paginator(job_list, page)
+    path = request.path
+    title = "Jobs"
+    return render(
+        request, "user/job.html", {"jobs": jobs, "path": path, "title": title}
+    )

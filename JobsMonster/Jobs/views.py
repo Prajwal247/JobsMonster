@@ -2,10 +2,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model
 from Hiring.models import Jobpost
 from django.core.paginator import Paginator
+from django.core.mail import send_mail
+from django.contrib import messages
+
 # Create your views here.
 def homepageview(request):
     jobs = Jobpost.objects.all().order_by('id')
-    users  = get_user_model().objects.exclude(Specialization='').order_by('id')
+    users  = get_user_model().objects.exclude(Specialization='').order_by('?')
     print(users)
     current_user = request.user
     # Paginator for jobspost
@@ -49,4 +52,18 @@ def developers(request):
 
 
 def contact(request):
+    if request.method=='POST':
+        name = request.POST['name']
+        subject = request.POST['subject']
+        email = request.POST['email']
+        message = request.POST['message']
+        send_mail(
+          subject=subject,
+          message=message,
+          from_email=email,
+          recipient_list=['jobsmonster247@gmail.com'],
+          fail_silently=False,
+        )
+        messages.add_message(request, messages.INFO, 'Your queries has been submitted we will get back to you soon')
+        
     return render(request, 'contact.html')
